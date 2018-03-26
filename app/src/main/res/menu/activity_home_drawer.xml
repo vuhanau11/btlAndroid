@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_menu"
+            android:icon="@drawable/ic_restaurant_black_24dp"
+            android:iconTint="@android:color/white"
+            android:title="Menu" />
+
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:iconTint="@android:color/white"
+            android:title="Giỏ hàng" />
+
+        <item
+            android:id="@+id/nav_change_pwd"
+            android:icon="@drawable/ic_security_black_24dp"
+            android:iconTint="@android:color/white"
+            android:title="Đổi mật khẩu" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:iconTint="@android:color/white"
+            android:title="Đăng xuất" />
+
+
+    </group>
+
+</menu>
