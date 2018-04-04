@@ -165,6 +165,9 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.nav_cart) {
             Intent cartIntent = new Intent(Home.this, Cart.class);
             startActivity(cartIntent);
+        } else if (id == R.id.nav_orders) {
+            Intent orderIntent = new Intent(Home.this, OrderStatus.class);
+            startActivity(orderIntent);
 
         } else if (id == R.id.nav_logout) {
             //xóa nhớ user và pasword

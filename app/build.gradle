@@ -34,7 +34,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-
+    //thu vien menu và user panel
     implementation 'com.android.support:cardview-v7:26.+'
     implementation 'com.android.support:recyclerview-v7:26.+'
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -48,5 +48,7 @@ dependencies {
     implementation 'com.github.rey5137:material:1.2.4'
     //doi mat khau
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
+    //đánh giá sản phẩm
+    implementation 'com.stepstone.apprating:app-rating:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
