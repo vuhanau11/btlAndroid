@@ -50,5 +50,7 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
     //đánh giá sản phẩm
     implementation 'com.stepstone.apprating:app-rating:2.0.0'
+    //google service
+    implementation 'com.google.android.gms:play-services-places:11.8.0'
 }
 apply plugin: 'com.google.gms.google-services'

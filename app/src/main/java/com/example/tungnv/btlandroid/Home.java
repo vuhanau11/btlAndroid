@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tungnv.btlandroid.Interface.ItemClick;
+import com.example.tungnv.btlandroid.Service.ListenOrder;
 import com.example.tungnv.btlandroid.ViewHolder.MenuViewHolder;
 import com.example.tungnv.btlandroid.common.Common;
 import com.example.tungnv.btlandroid.model.Order;
@@ -104,6 +105,9 @@ public class Home extends AppCompatActivity
             Toast.makeText(Home.this, "Vui lòng kiểm tra kết nối !!", Toast.LENGTH_SHORT).show();
             return;
         }
+        //Register service
+        Intent service = new Intent(Home.this, ListenOrder.class);
+        startService(service);
 
     }
 

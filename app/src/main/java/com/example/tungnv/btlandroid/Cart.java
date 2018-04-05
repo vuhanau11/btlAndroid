@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,10 @@ import com.example.tungnv.btlandroid.ViewHolder.CartAdapter;
 import com.example.tungnv.btlandroid.common.Common;
 import com.example.tungnv.btlandroid.model.Order;
 import com.example.tungnv.btlandroid.model.Request;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -44,6 +49,8 @@ public class Cart extends AppCompatActivity {
     List<Order> cart = new ArrayList<>();
 
     CartAdapter adapter;
+
+    Place shippingAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +91,30 @@ public class Cart extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         View order_address_comment = inflater.inflate(R.layout.order_address_comment, null);
 
-        final MaterialEditText edtAddress = (MaterialEditText)order_address_comment.findViewById(R.id.edtAddress);
+        //final MaterialEditText edtAddress = (MaterialEditText)order_address_comment.findViewById(R.id.edtAddress);
+        PlaceAutocompleteFragment edtAddress = (PlaceAutocompleteFragment)getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+        //hide search icon before fragment
+        edtAddress.getView().findViewById(R.id.place_autocomplete_search_button).setVisibility(View.GONE);
+        //set hint for autocomplete edit text
+        ((EditText)edtAddress.getView().findViewById(R.id.place_autocomplete_search_input))
+                .setHint("Nhập địa chỉ của bạn");
+        //set text size
+        ((EditText)edtAddress.getView().findViewById(R.id.place_autocomplete_search_input))
+                .setTextSize(14);
+
+        //get address from place autoplete
+        edtAddress.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                shippingAddress = place;
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.e("Lỗi", status.getStatusMessage());
+            }
+        });
+
         final MaterialEditText edtComment = (MaterialEditText)order_address_comment.findViewById(R.id.edtComment);
 
         alertDialog.setView(order_address_comment);
@@ -94,16 +124,17 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //create new request
-                if (edtAddress.length() == 0){
+                if (shippingAddress == null){
                     Toast.makeText(Cart.this, "Vui lòng nhập địa chỉ của bạn!!", Toast.LENGTH_SHORT).show();
                 }else {
                     Request request = new Request(
                             Common.curentUser.getPhone(),
                             Common.curentUser.getName(),
-                            edtAddress.getText().toString(),
+                            shippingAddress.getAddress().toString(),
                             txtTotalPrice.getText().toString(),
                             "0", //status
                             edtComment.getText().toString(),
+                            String.format("%s,%s", shippingAddress.getLatLng().latitude, shippingAddress.getLatLng().longitude),
                             cart
                     );
                     //submit to firebase
@@ -114,12 +145,23 @@ public class Cart extends AppCompatActivity {
                     Toast.makeText(Cart.this, "Cảm ơn bạn đã đặt hàng", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+
+                //Remove fragment
+                getFragmentManager().beginTransaction()
+                        .remove(getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment))
+                        .commit();
+
             }
         });
         alertDialog.setNegativeButton("Thoát", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+
+                //Remove fragment
+                getFragmentManager().beginTransaction()
+                        .remove(getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment))
+                        .commit();
             }
         });
         alertDialog.show();

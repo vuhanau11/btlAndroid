@@ -16,6 +16,15 @@ public class Common {
     public static final String USER_KEY = "Tài khoản";
     public static final String PWD_KEY = "Mật khẩu";
 
+    public static String convertCodeToStatus(String status) {
+        if (status.equals("0"))
+            return "Đã nhận đơn hàng";
+        else if (status.equals("1"))
+            return "Đang được vận chuyển";
+        else
+            return "Đã chuyển đến nơi";
+    }
+
     public static boolean isConnectedToInternet(Context context){
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
