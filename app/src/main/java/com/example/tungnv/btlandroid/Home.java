@@ -43,12 +43,14 @@ import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 import io.paperdb.Paper;
+//----------1-----user panel and menu page------------------------
+
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseDatabase database;
-    DatabaseReference theloai;
+    FirebaseDatabase database;//  1
+    DatabaseReference theloai;//  1
 
     TextView txtFullname;
     RecyclerView recycler_menu;
@@ -64,9 +66,9 @@ public class Home extends AppCompatActivity
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
 
-        //Trong firebase
-        database = FirebaseDatabase.getInstance();
-        theloai = database.getReference("Theloai");
+        //Mở đầu firebase
+        database = FirebaseDatabase.getInstance();//  1
+        theloai = database.getReference("Theloai");//  1
 
         Paper.init(this);
 
@@ -88,12 +90,12 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // đặt tên cho user
+        // đặt tên cho user   1
         View headerView = navigationView.getHeaderView(0);
         txtFullname = (TextView)headerView.findViewById(R.id.txtFullname);
         txtFullname.setText(Common.curentUser.getName());
 
-        //Load menu
+        //Load menu    1
         recycler_menu = (RecyclerView)findViewById(R.id.recycler_menu);
         recycler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -111,7 +113,7 @@ public class Home extends AppCompatActivity
 
     }
 
-    private void loadMenu() {
+    private void loadMenu() { //Load ảnh vs dữ liệu lên menu
         adapter = new FirebaseRecyclerAdapter<Theloai, MenuViewHolder>(Theloai.class, R.layout.menu_item, MenuViewHolder.class, theloai) {
             @Override
             protected void populateViewHolder(MenuViewHolder viewHolder, Theloai model, int position) {
@@ -121,7 +123,7 @@ public class Home extends AppCompatActivity
                 viewHolder.setItemClick(new ItemClick() {
                     @Override
                     public void onclick(View view, int position, boolean islongclick) {
-                        //them the loại va chuyen sang activity mới
+                        //Thêm thể loại và chuyển sang activity mới
                         Intent foodList = new Intent(Home.this, FoodList.class);
                         foodList.putExtra("TheloaiId", adapter.getRef(position).getKey());
                         startActivity(foodList);
@@ -131,7 +133,6 @@ public class Home extends AppCompatActivity
         };
         recycler_menu.setAdapter(adapter);
     }
-
 
     @Override
     public void onBackPressed() {

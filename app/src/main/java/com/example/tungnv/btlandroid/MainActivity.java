@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Kiểm tra lưu
+        //Kiểm tra lưu mật khẩu
         String user = Paper.book().read(Common.USER_KEY);
         String pwd = Paper.book().read(Common.PWD_KEY);
         if (user!=null &&pwd!=null){

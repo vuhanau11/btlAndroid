@@ -8,7 +8,6 @@
     tools:context="com.example.tungnv.btlandroid.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -17,7 +16,6 @@
             android:src="@drawable/logo2"
             android:layout_width="350dp"
             android:layout_height="350dp"
-
             />
     </LinearLayout>
 

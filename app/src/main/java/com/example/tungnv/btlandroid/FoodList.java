@@ -68,7 +68,7 @@ public class FoodList extends AppCompatActivity {
                     public void onclick(View view, int position, boolean islongclick) {
                         //băt đầu giao diện mới
                         Intent foodDetail = new Intent(FoodList.this, FoodDetail.class);
-                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey()); //chuyển FoodId đến giao dien ms
+                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey()); //chuyển FoodId đến giao dien mới
                         startActivity(foodDetail);
                     }
                 });

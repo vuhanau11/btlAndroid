@@ -37,7 +37,7 @@ public class Dangnhap extends AppCompatActivity {
         //Init paper
         Paper.init(this);
 
-        //Trong firebase
+        //Mở đầu firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
 
@@ -71,9 +71,9 @@ public class Dangnhap extends AppCompatActivity {
                                     mDialog.dismiss();
                                     User user = dataSnapshot.child(edtphone.getText().toString()).getValue(User.class);
 
-                                    user.setPhone(edtphone.getText().toString()); //set phone
+                                    user.setPhone(edtphone.getText().toString());   //Set phone
 
-                                    if (user.getPassword().equals(edtpassword.getText().toString())) {
+                                    if (user.getPassword().equals(edtpassword.getText().toString())) { // đăng nhập thành công chuyển đến form menu
                                         Intent homeIntent = new Intent(Dangnhap.this, Home.class);
                                         Common.curentUser = user;
                                         startActivity(homeIntent);
